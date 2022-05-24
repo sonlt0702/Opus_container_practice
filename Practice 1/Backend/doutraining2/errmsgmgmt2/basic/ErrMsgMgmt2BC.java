@@ -28,7 +28,7 @@ import com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.vo.ErrMsgVO;
 public interface ErrMsgMgmt2BC {
 
 	/**
-	 * [비즈니스대상]을 [행위] 합니다.<br>
+	 * Search Error Message management.<br>
 	 * 
 	 * @param ErrMsgVO	errMsgVO
 	 * @return List<ErrMsgVO>
@@ -37,7 +37,7 @@ public interface ErrMsgMgmt2BC {
 	public List<ErrMsgVO> searchErrMsg(ErrMsgVO errMsgVO) throws EventException;
 	
 	/**
-	 * [비즈니스대상]을 [행위] 합니다.<br>
+	 * Insert, Update, Delete Error Message management<br>
 	 * 
 	 * @param ErrMsgVO[] errMsgVO
 	 * @param account SignOnUserAccount

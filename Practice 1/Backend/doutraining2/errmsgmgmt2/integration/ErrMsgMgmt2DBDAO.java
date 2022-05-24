@@ -40,7 +40,7 @@ import com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.vo.ErrMsgVO;
 public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 
 	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
+	 * Search Error Message from database<br>
 	 * 
 	 * @param ErrMsgVO errMsgVO
 	 * @return List<ErrMsgVO>
@@ -73,110 +73,9 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 		}
 		return list;
 	}
-	
-	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
-	 * 
-	 * @param ErrMsgVO errMsgVO
-	 * @exception DAOException
-	 * @exception Exception
-	 */
-	public void addmanageErrMsg(ErrMsgVO errMsgVO) throws DAOException,Exception {
-		//query parameter
-		Map<String, Object> param = new HashMap<String, Object>();
-		//velocity parameter
-		Map<String, Object> velParam = new HashMap<String, Object>();
-		try {
-			Map<String, String> mapVO = errMsgVO .getColumnValues();
-			
-			param.putAll(mapVO);
-			velParam.putAll(mapVO);
-			
-			SQLExecuter sqlExe = new SQLExecuter("");
-			int result = sqlExe.executeUpdate((ISQLTemplate)new ErrMsgMgmt2DBDAOErrMsgVOCSQL(), param, velParam);
-			if(result == Statement.EXECUTE_FAILED)
-					throw new DAOException("Fail to insert SQL");
-		} catch(SQLException se) {
-			log.error(se.getMessage(),se);
-			throw new DAOException(new ErrorHandler(se).getMessage());
-		} catch(Exception ex) {
-			log.error(ex.getMessage(),ex);
-			throw new DAOException(new ErrorHandler(ex).getMessage());
-		}
-	}
-	
-	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
-	 * 
-	 * @param ErrMsgVO errMsgVO
-	 * @return int
-	 * @exception DAOException
-	 * @exception Exception
-	 */
-	public int modifymanageErrMsg(ErrMsgVO errMsgVO) throws DAOException,Exception {
-		//query parameter
-		Map<String, Object> param = new HashMap<String, Object>();
-		//velocity parameter
-		Map<String, Object> velParam = new HashMap<String, Object>();
-		
-		int result = 0;
-		try {
-			Map<String, String> mapVO = errMsgVO .getColumnValues();
-			
-			param.putAll(mapVO);
-			velParam.putAll(mapVO);
-			
-			SQLExecuter sqlExe = new SQLExecuter("");
-			result = sqlExe.executeUpdate((ISQLTemplate)new ErrMsgMgmt2DBDAOErrMsgVOUSQL(), param, velParam);
-			if(result == Statement.EXECUTE_FAILED)
-					throw new DAOException("Fail to insert SQL");
-		} catch(SQLException se) {
-			log.error(se.getMessage(),se);
-			throw new DAOException(new ErrorHandler(se).getMessage());
-		} catch(Exception ex) {
-			log.error(ex.getMessage(),ex);
-			throw new DAOException(new ErrorHandler(ex).getMessage());
-		}
-		return result;
-	}
-	
-	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
-	 * 
-	 * @param ErrMsgVO errMsgVO
-	 * @return int
-	 * @exception DAOException
-	 * @exception Exception
-	 */
-	public int removemanageErrMsg(ErrMsgVO errMsgVO) throws DAOException,Exception {
-		//query parameter
-		Map<String, Object> param = new HashMap<String, Object>();
-		//velocity parameter
-		Map<String, Object> velParam = new HashMap<String, Object>();
-		
-		int result = 0;
-		try {
-			Map<String, String> mapVO = errMsgVO .getColumnValues();
-			
-			param.putAll(mapVO);
-			velParam.putAll(mapVO);
-			
-			SQLExecuter sqlExe = new SQLExecuter("");
-			result = sqlExe.executeUpdate((ISQLTemplate)new ErrMsgMgmt2DBDAOErrMsgVODSQL(), param, velParam);
-			if(result == Statement.EXECUTE_FAILED)
-					throw new DAOException("Fail to insert SQL");
-		} catch(SQLException se) {
-			log.error(se.getMessage(),se);
-			throw new DAOException(new ErrorHandler(se).getMessage());
-		} catch(Exception ex) {
-			log.error(ex.getMessage(),ex);
-			throw new DAOException(new ErrorHandler(ex).getMessage());
-		}
-		return result;
-	}
 
 	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
+	 * Add list Error Message into database<br>
 	 * 
 	 * @param List<ErrMsgVO> errMsgVO
 	 * @return int[]
@@ -204,7 +103,7 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 		return insCnt;
 	}
 	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
+	 * Update list Error Message in database<br>
 	 * 
 	 * @param List<ErrMsgVO> errMsgVO
 	 * @return int[]
@@ -219,7 +118,7 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 				updCnt = sqlExe.executeBatch((ISQLTemplate)new ErrMsgMgmt2DBDAOErrMsgVOUSQL(), errMsgVO,null);
 				for(int i = 0; i < updCnt.length; i++){
 					if(updCnt[i]== Statement.EXECUTE_FAILED)
-						throw new DAOException("Fail to insert No"+ i + " SQL");
+						throw new DAOException("Fail to update No"+ i + " SQL");
 				}
 			}
 		} catch(SQLException se) {
@@ -233,7 +132,7 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 	}
 	
 	/**
-	 * [처리대상] 정보를 [행위] 합니다.<br>
+	 * Delete list Error Message in database<br>
 	 * 
 	 * @param List<ErrMsgVO> errMsgVO
 	 * @return int[]
@@ -248,7 +147,7 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 				delCnt = sqlExe.executeBatch((ISQLTemplate)new ErrMsgMgmt2DBDAOErrMsgVODSQL(), errMsgVO,null);
 				for(int i = 0; i < delCnt.length; i++){
 					if(delCnt[i]== Statement.EXECUTE_FAILED)
-						throw new DAOException("Fail to insert No"+ i + " SQL");
+						throw new DAOException("Fail to remove No"+ i + " SQL");
 				}
 			}
 		} catch(SQLException se) {
@@ -259,6 +158,42 @@ public class ErrMsgMgmt2DBDAO extends DBDAOSupport {
 			throw new DAOException(new ErrorHandler(ex).getMessage());
 		}
 		return delCnt;
+	}
+	/**
+	 * Check duplicate Error Message management when insert
+	 * 
+	 * @param inputVO
+	 * @return Duplicate Flag (Y || N)
+	 * @throws DAOException
+	 */
+	public String CheckDplErrMsgVO(ErrMsgVO inputVO) throws DAOException {
+		DBRowSet dbRowset = null;
+		String dupFlg = "";
+		//query parameter
+		Map<String, Object> param = new HashMap<String, Object>();
+		//velocity parameter
+		Map<String, Object> velParam = new HashMap<String, Object>();
+		
+		try{
+			if( inputVO != null ){
+				Map<String, String> mapVO = inputVO .getColumnValues();
+				 
+				param.putAll(mapVO);
+				velParam.putAll(mapVO);
+			}
+			dbRowset = new SQLExecuter("").executeQuery((ISQLTemplate)new ErrMsgMgmt2DBDAOCheckDplErrMsgVORSQL(), param, velParam);
+			if ( dbRowset!=null && dbRowset.next() ){
+				dupFlg = dbRowset.getString(1);
+			}
+		} catch(SQLException se) {
+			log.error(se.getMessage(),se);
+			throw new DAOException(new ErrorHandler(se).getMessage());
+		} catch(Exception ex) {
+			log.error(ex.getMessage(),ex);
+			throw new DAOException(new ErrorHandler(ex).getMessage());
+		}
+		
+		return dupFlg;
 	}
 	
 }

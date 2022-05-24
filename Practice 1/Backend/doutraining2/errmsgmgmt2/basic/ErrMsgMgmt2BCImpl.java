@@ -14,6 +14,8 @@ package com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.basic;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bluecast.util.DuplicateKeyException;
 import com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.integration.ErrMsgMgmt2DBDAO;
 import com.clt.framework.component.message.ErrorHandler;
 import com.clt.framework.core.layer.event.EventException;
@@ -35,19 +37,13 @@ public class ErrMsgMgmt2BCImpl extends BasicCommandSupport implements ErrMsgMgmt
 	private transient ErrMsgMgmt2DBDAO dbDao = null;
 
 	/**
-	 * ErrMsgMgmt2BCImpl 객체 생성<br>
-	 * ErrMsgMgmt2DBDAO를 생성한다.<br>
+	 *Initial DBDAO.
 	 */
 	public ErrMsgMgmt2BCImpl() {
 		dbDao = new ErrMsgMgmt2DBDAO();
 	}
-	/**
-	 * [비즈니스대상]을 [행위] 합니다.<br>
-	 * 
-	 * @param ErrMsgVO errMsgVO
-	 * @return List<ErrMsgVO>
-	 * @exception EventException
-	 */
+	
+	@Override
 	public List<ErrMsgVO> searchErrMsg(ErrMsgVO errMsgVO) throws EventException {
 		try {
 			return dbDao.searchErrMsg(errMsgVO);
@@ -59,14 +55,10 @@ public class ErrMsgMgmt2BCImpl extends BasicCommandSupport implements ErrMsgMgmt
 		
 	}
 	
-	/**
-	 * [비즈니스대상]을 [행위] 합니다.<br>
-	 * 
-	 * @param ErrMsgVO[] errMsgVO
-	 * @param account SignOnUserAccount
-	 * @exception EventException
-	 */
+	@Override
 	public void manageErrMsg(ErrMsgVO[] errMsgVO, SignOnUserAccount account) throws EventException{
+		String dupFlg = "";
+		String errFlg = "";
 		try {
 			List<ErrMsgVO> insertVoList = new ArrayList<ErrMsgVO>();
 			List<ErrMsgVO> updateVoList = new ArrayList<ErrMsgVO>();
@@ -84,7 +76,19 @@ public class ErrMsgMgmt2BCImpl extends BasicCommandSupport implements ErrMsgMgmt
 			}
 			
 			if ( insertVoList.size() > 0 ) {
-				dbDao.addmanageErrMsgS(insertVoList);
+				
+				//Checking Duplication
+				for( int idx=0; idx<insertVoList.size(); idx++ ){
+					dupFlg = dbDao.CheckDplErrMsgVO(insertVoList.get(idx));
+					if( "Y".equals(dupFlg) ){
+						errFlg = "Y";
+					}
+				}
+				if( !"Y".equals(errFlg) ){
+					dbDao.addmanageErrMsgS(insertVoList);
+				} else{
+					throw new DuplicateKeyException(new ErrorHandler("ERR00001",new String[]{"Error Message Code"}).getMessage());
+				}
 			}
 			
 			if ( updateVoList.size() > 0 ) {

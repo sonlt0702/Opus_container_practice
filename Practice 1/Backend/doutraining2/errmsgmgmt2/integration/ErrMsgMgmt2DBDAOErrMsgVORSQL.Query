@@ -15,7 +15,7 @@ SELECT
 ,	ERR_LVL_CD
 ,	ERR_TP_CD
 ,	LANG_TP_CD
-,	ERR_MSG_CD                                                        
+,	ERR_MSG_CD                                                           
 FROM com_err_msg                                                      
 WHERE lang_tp_cd = 'ENG'
 #if (${err_msg_cd} != '') 

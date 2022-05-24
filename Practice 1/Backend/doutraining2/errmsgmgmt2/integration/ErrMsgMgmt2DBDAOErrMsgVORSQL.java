@@ -4,10 +4,10 @@
 *@FileTitle : 
 *Open Issues :
 *Change history :
-*@LastModifyDate : 2022.05.10
+*@LastModifyDate : 2022.05.16
 *@LastModifier : 
 *@LastVersion : 1.0
-* 2022.05.10 
+* 2022.05.16 
 * 1.0 Creation
 =========================================================*/
 package com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.integration;
@@ -85,7 +85,7 @@ public class ErrMsgMgmt2DBDAOErrMsgVORSQL implements ISQLTemplate{
 		query.append(",	ERR_LVL_CD" ).append("\n"); 
 		query.append(",	ERR_TP_CD" ).append("\n"); 
 		query.append(",	LANG_TP_CD" ).append("\n"); 
-		query.append(",	ERR_MSG_CD                                                        " ).append("\n"); 
+		query.append(",	ERR_MSG_CD                                                           " ).append("\n"); 
 		query.append("FROM com_err_msg                                                      " ).append("\n"); 
 		query.append("WHERE lang_tp_cd = 'ENG'" ).append("\n"); 
 		query.append("#if (${err_msg_cd} != '') " ).append("\n"); 

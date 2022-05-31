@@ -442,11 +442,14 @@
                 break; 
             case IBDOWNEXCEL:	//down excel
         		// check sheet have to data
-    			if(sheetObj.RowCount() < 1){
+    			if(sheetObjects[0].RowCount() < 1 || sheetObjects[1].RowCount() < 1){
     				ComShowCodeMessage("COM132501");
     			}else{
-    				// download file excel except row hidden and check box
-    				sheetObj.Down2Excel({DownCols: makeHiddenSkipCol(sheetObj), FileName : "myFile.xlsx", Merge: 1});
+    				// download all sheet into a file excel except row hidden and check box
+    				sheetObj.Down2ExcelBuffer(true);
+    				sheetObjects[0].Down2Excel({DownCols: makeHiddenSkipCol(sheetObjects[0]), FileName : "myFile.xlsx", Merge: 1, SheetName: "Summary"});
+    				sheetObjects[1].Down2Excel({DownCols: makeHiddenSkipCol(sheetObjects[1]), FileName : "myFile.xlsx", Merge: 1, SheetName: "Detail"});
+    				sheetObj.Down2ExcelBuffer(false);
     			}
     			break;
         }

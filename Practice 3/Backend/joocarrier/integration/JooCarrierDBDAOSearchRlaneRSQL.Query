@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+	<querys>
+		<query name="JooCarrierDBDAOSearchRlaneRSQL">
+			<desc><![CDATA[search Rlane]]></desc>
+			<sql><![CDATA[
+SELECT DISTINCT
+	RLANE_CD
+FROM JOO_STL_TGT
+WHERE 1=1
+#if (${jo_crr_cds}!=''  && ${jo_crr_cds} != 'ALL')
+AND JO_CRR_CD  IN ( #foreach($key IN ${jo_crr_cds})#if($velocityCount < $jo_crr_cds.size()) '$key', #else '$key' #end #end)
+#end			]]></sql>
+			<params>
+			</params>
+		</query>
+	</querys>
+</sqls>

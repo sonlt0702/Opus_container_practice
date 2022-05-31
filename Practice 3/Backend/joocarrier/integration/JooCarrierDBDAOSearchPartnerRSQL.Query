@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+	<querys>
+		<query name="JooCarrierDBDAOSearchPartnerRSQL">
+			<desc><![CDATA[search partner]]></desc>
+			<sql><![CDATA[
+SELECT DISTINCT
+	JO_CRR_CD
+FROM JOO_INVOICE			]]></sql>
+			<params>
+			</params>
+		</query>
+	</querys>
+</sqls>

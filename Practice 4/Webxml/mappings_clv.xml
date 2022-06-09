@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://www.cyberlogitec.com/mappings">
+	<!-- Son Le : 2022-05-05 start -->
+    <url-mapping url="DOU_TRN_0011.do" screen="DOU_TRN_0011.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining.errmsgmgmt.event.DOU_TRN_0001HTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="DOU_TRN_0011GS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining.errmsgmgmt.event.DOU_TRN_0001HTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining.errmsgmgmt.event.DouTrn0001Event</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining.douTrainingSC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-05-05 end -->
+
+	<!-- Son Le : 2022-05-05 start -->
+    <url-mapping url="DOU_TRN_0002.do" screen="DOU_TRN_0002.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.event.DOU_TRN_0002HTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="DOU_TRN_0002GS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.event.DOU_TRN_0002HTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining2.errmsgmgmt2.event.DouTrn0002Event</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining2.douTraining2SC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-05-05 end -->
+	
+	<!-- Son Le : 2022-05-16 start -->
+    <url-mapping url="DOU_TRN_0003.do" screen="DOU_TRN_0003.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining2.codemgmt.event.DOU_TRN_0003HTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="DOU_TRN_0003GS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining2.codemgmt.event.DOU_TRN_0003HTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining2.codemgmt.event.DouTrn0003Event</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining2.douTraining2SC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-05-16 end -->
+
+	<!-- Son Le : 2022-05-23 start -->
+    <url-mapping url="ESM_DOU_0108.do" screen="ESM_DOU_0108.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining3.joocarrier.event.ESM_DOU_0108HTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="ESM_DOU_0108GS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining3.joocarrier.event.ESM_DOU_0108HTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining3.joocarrier.event.EsmDou0108Event</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining3.DouTraining3SC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-05-23 end -->
+
+	<!-- Son Le : 2022-06-01 start -->
+    <url-mapping url="ESM_DOU_0109.do" screen="ESM_DOU_0109.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.ESM_DOU_0109HTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="ESM_DOU_0109GS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.ESM_DOU_0109HTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.EsmDou0109Event</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining4.DouTraining4SC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-06-01 end -->
+
+	<!-- Son Le : 2022-06-07 start -->
+    <url-mapping url="Customer_POPUP.do" screen="Customer_POPUP.screen" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.CUSTOMER_POPUPHTMLAction</web-action-class>
+    </url-mapping>
+
+    <url-mapping url="Customer_POPUPGS.do" screen="com.clt.framework.core.controller.DefaultViewAdapter" >
+        <web-action-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.CUSTOMER_POPUPHTMLAction</web-action-class>
+    </url-mapping>
+
+    <event-mapping>
+        <event-class>com.clt.apps.opus.esm.clv.doutraining4.joocarriermgmt.event.CustomerPopupEvent</event-class>
+        <service-action-class>com.clt.apps.opus.esm.clv.doutraining4.DouTraining4SC</service-action-class>
+    </event-mapping>
+	<!-- Son Le : 2022-06-07 end -->
+
+</mappings>

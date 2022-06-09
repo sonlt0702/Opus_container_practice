@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen-definitions xmlns="http://www.cyberlogitec.com/screen-definitions">
+	<!-- Son Le : 2022-05-05 start -->
+    <screen name="DOU_TRN_0011">
+        <parameter key="title"    value="Error Message Management" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining/errmsgmgmt/jsp/DOU_TRN_0001.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-05-05 end -->
+
+	<!-- Son Le : 2022-05-05 start -->
+    <screen name="DOU_TRN_0002">
+        <parameter key="title"    value="Error Message Management2" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining2/errmsgmgmt2/jsp/DOU_TRN_0002.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-05-05 end -->
+	
+	<!-- Son Le : 2022-05-16 start -->
+    <screen name="DOU_TRN_0003">
+        <parameter key="title"    value="Code Management" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining2/codemgmt/jsp/DOU_TRN_0003.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-05-16 end -->
+
+	<!-- Son Le : 2022-05-23 start -->
+    <screen name="ESM_DOU_0108">
+        <parameter key="title"    value="Joo Carrier" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining3/joocarrier/jsp/ESM_DOU_0108.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-05-23 end -->
+
+	<!-- Son Le : 2022-06-01 start -->
+    <screen name="ESM_DOU_0109">
+        <parameter key="title"    value="Joo Carrier Management" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining4/joocarriermgmt/jsp/ESM_DOU_0109.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-06-01 end -->
+
+	<!-- Son Le : 2022-06-07 start -->
+    <screen name="Customer_POPUP" template="templatePop">
+        <parameter key="title"    value="Customer Popup" direct="true"/>
+        <parameter key="body"     value="apps/opus/esm/clv/doutraining4/joocarriermgmt/jsp/CUSTOMER_POPUP.jsp"/>
+    </screen>
+	<!-- Son Le : 2022-06-07 end -->
+
+</screen-definitions>

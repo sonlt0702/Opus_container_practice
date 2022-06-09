@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+	<querys>
+		<query name="JooCarrierMgmtDBDAOChkDupCrrRSQL">
+			<desc><![CDATA[check duplicate carrier and rev lane]]></desc>
+			<sql><![CDATA[
+SELECT  DECODE(SIGN(COUNT(JO_CRR_CD)),1,'Y','N') DUP_FLG
+FROM    JOO_CARRIER
+WHERE   JO_CRR_CD = @[jo_crr_cd]
+AND 	RLANE_CD = @[rlane_cd]			]]></sql>
+			<params>
+				<param name="jo_crr_cd" type="12" value="" out="N"/>
+				<param name="rlane_cd" type="12" value="" out="N"/>
+			</params>
+		</query>
+	</querys>
+</sqls>

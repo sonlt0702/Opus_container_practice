@@ -21,6 +21,7 @@ import com.clt.framework.core.layer.event.Event;
 import com.clt.framework.core.layer.event.EventException;
 import com.clt.framework.core.layer.event.EventResponse;
 import com.clt.framework.component.message.ErrorHandler;
+import com.clt.framework.component.rowset.DBRowSet;
 import com.clt.framework.core.layer.event.GeneralEventResponse;
 import com.clt.framework.support.controller.html.FormCommand;
 import com.clt.framework.support.layer.service.ServiceCommandSupport;
@@ -90,6 +91,8 @@ public class DouTraining3SC extends ServiceCommandSupport {
 				eventResponse = searchRlane(e);
 			} else if (e.getFormCommand().isCommand(FormCommand.SEARCH05)) {
 				eventResponse = searchTrade(e);
+			} else if (e.getFormCommand().isCommand(FormCommand.COMMAND01)) {
+				eventResponse = directDownExcel(e);
 			}
 		}
 		return eventResponse;
@@ -165,6 +168,35 @@ public class DouTraining3SC extends ServiceCommandSupport {
 				eventResponse.setETCData("rev"+i, list.get(i).getInvRevActAmt());
 				eventResponse.setETCData("exp"+i, list.get(i).getInvExpActAmt());
 			}
+		}catch(EventException ex){
+			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
+		}catch(Exception ex){
+			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
+		}	
+		return eventResponse;
+	}
+	/**
+	 * ESM_DOU_0108 : [searchTotalSum]<br>
+	 * Get total sum into ETC Data by Currency.<br>
+	 * 
+	 * @param Event e
+	 * @return EventResponse
+	 * @exception EventException
+	 */
+	private EventResponse directDownExcel(Event e) throws EventException {
+		// PDTO(Data Transfer Object including Parameters)
+		GeneralEventResponse eventResponse = new GeneralEventResponse();
+		EsmDou0108Event event = (EsmDou0108Event)e;
+		JooCarrierBC command = new JooCarrierBCImpl();
+		
+		try{
+			List<Object> list = command.directDownExcel(event.getJooCarrierVO());
+			eventResponse.setCustomData("vos", list.get(0));
+			eventResponse.setCustomData("fileName", "excel.xls");
+			eventResponse.setCustomData("title", list.get(1));
+			eventResponse.setCustomData("columns", list.get(2));
+			eventResponse.setCustomData("isZip", false);
+			
 		}catch(EventException ex){
 			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
 		}catch(Exception ex){

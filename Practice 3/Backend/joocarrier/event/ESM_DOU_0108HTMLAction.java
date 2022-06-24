@@ -64,6 +64,8 @@ public class ESM_DOU_0108HTMLAction extends HTMLActionSupport {
 			event.setSearchParamsVO((SearchParamsVO)getVO(request, SearchParamsVO .class, "s_"));
 		} else if (command.isCommand(FormCommand.SEARCH05)) {
 			event.setSearchParamsVO((SearchParamsVO)getVO(request, SearchParamsVO .class, "s_"));
+		} else if (command.isCommand(FormCommand.COMMAND01)) {
+			event.setJooCarrierVO((JooCarrierVO)getVO(request, JooCarrierVO .class, "s_"));
 		}
 		return  event;
 	}

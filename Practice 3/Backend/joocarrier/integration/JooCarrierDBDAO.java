@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import com.clt.apps.opus.esm.clv.doutraining3.joocarrier.basic.JooCarrierBCImpl;
 import com.clt.apps.opus.esm.clv.doutraining3.joocarrier.vo.JooCarrierDetailVO;
 import com.clt.apps.opus.esm.clv.doutraining3.joocarrier.vo.JooCarrierVO;
@@ -289,6 +290,67 @@ public class JooCarrierDBDAO extends DBDAOSupport {
 					 }
 					 dbRowset = new SQLExecuter("").executeQuery((ISQLTemplate)new JooCarrierDBDAOSearchTradeRSQL(), param, velParam);
 					 list = (List)RowSetUtil.rowSetToVOs(dbRowset, SearchParamsVO .class);
+				 } catch(SQLException se) {
+					 log.error(se.getMessage(),se);
+					 throw new DAOException(new ErrorHandler(se).getMessage());
+				 } catch(Exception ex) {
+					 log.error(ex.getMessage(),ex);
+					 throw new DAOException(new ErrorHandler(ex).getMessage());
+				 }
+				 return list;
+			 }
+			 /**
+			  * [searchTrade]<br>
+			  * Connect to DB to get data Trade
+			  * 
+			  * @param SearchParamsVO searchParamsVO
+			  * @return List<SearchParamsVO>
+			  * @exception DAOException
+			  */
+			 @SuppressWarnings({ "unchecked" })
+			 public List<Object> directDownExcel(JooCarrierVO jooCarrierVO) throws DAOException {
+				 DBRowSet dbRowset = null;
+				 List<Object> list = new ArrayList<>();
+				 //query parameter
+				 Map<String, Object> param = new HashMap<String, Object>();
+				 //velocity parameter
+				 Map<String, Object> velParam = new HashMap<String, Object>();
+				 try{
+					 if(jooCarrierVO != null){
+						// get parameter Partner and compile to List
+							List<String> listPartners = new ArrayList<>();
+							if (!jooCarrierVO.getJoCrrCd().equals("ALL") && jooCarrierVO.getJoCrrCd() != "") {
+								String[] joCrrCds = jooCarrierVO.getJoCrrCd().split(",");
+								for (int i = 0; i< joCrrCds.length; i++) {
+									listPartners.add(joCrrCds[i]);
+								}
+								param.put("jo_crr_cds", listPartners);
+								velParam.put("jo_crr_cds", listPartners);
+							} else {
+								param.put("jo_crr_cds", "ALL");
+								velParam.put("jo_crr_cds", "ALL");
+							}
+						 Map<String, String> mapVO = jooCarrierVO .getColumnValues();
+						 
+						 param.putAll(mapVO);
+						 velParam.putAll(mapVO);
+					 }
+					 if ("t1sheet1".equals(jooCarrierVO.getSheetId())) {
+						 dbRowset = new SQLExecuter("").executeQuery((ISQLTemplate)new JooCarrierDBDAOJooCarrierVORSQL(), param, velParam);
+						 list.add((List)RowSetUtil.rowSetToVOs(dbRowset, JooCarrierVO .class));
+					 } else {
+						 dbRowset = new SQLExecuter("").executeQuery((ISQLTemplate)new JooCarrierDBDAOJooCarrierDetailVORSQL(), param, velParam);
+						 list.add((List)RowSetUtil.rowSetToVOs(dbRowset, JooCarrierDetailVO .class));
+					 }
+					 int len = dbRowset.getMetaData().getColumnCount();
+					 String[] titles = new String[len];
+					 String[] columns = new String[len];
+					 for (int i=1;i<=len;i++) {
+						 titles[i-1] = dbRowset.getMetaData().getColumnName(i);
+						 columns[i-1] = dbRowset.getMetaData().getColumnName(i).toLowerCase();
+					 }
+					 list.add(titles);
+					 list.add(columns);
 				 } catch(SQLException se) {
 					 log.error(se.getMessage(),se);
 					 throw new DAOException(new ErrorHandler(se).getMessage());

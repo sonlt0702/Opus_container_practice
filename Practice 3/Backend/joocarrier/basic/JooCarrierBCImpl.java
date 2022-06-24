@@ -15,8 +15,10 @@ package com.clt.apps.opus.esm.clv.doutraining3.joocarrier.basic;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.clt.apps.opus.esm.clv.doutraining3.joocarrier.integration.JooCarrierDBDAO;
 import com.clt.framework.component.message.ErrorHandler;
+import com.clt.framework.component.rowset.DBRowSet;
 import com.clt.framework.core.layer.event.EventException;
 import com.clt.framework.core.layer.integration.DAOException;
 import com.clt.framework.support.layer.basic.BasicCommandSupport;
@@ -113,6 +115,19 @@ public class JooCarrierBCImpl extends BasicCommandSupport implements JooCarrierB
 		// TODO Auto-generated method stub
 		try {
 			return dbDao.searchTrade(searchParamsVO);
+		} catch(DAOException ex) {
+			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
+		} catch (Exception ex) {
+			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
+		}
+	}
+
+	@Override
+	public List<Object> directDownExcel(JooCarrierVO jooCarrierVO)
+			throws EventException {
+		// TODO Auto-generated method stub
+		try {
+			return dbDao.directDownExcel(jooCarrierVO);
 		} catch(DAOException ex) {
 			throw new EventException(new ErrorHandler(ex).getMessage(),ex);
 		} catch (Exception ex) {

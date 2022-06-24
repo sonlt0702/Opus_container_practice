@@ -14,6 +14,7 @@ package com.clt.apps.opus.esm.clv.doutraining3.joocarrier.basic;
 
 import java.util.List;
 
+import com.clt.framework.component.rowset.DBRowSet;
 import com.clt.framework.core.layer.event.EventException;
 import com.clt.framework.support.view.signon.SignOnUserAccount;
 import com.clt.apps.opus.esm.clv.doutraining3.joocarrier.vo.JooCarrierDetailVO;
@@ -57,6 +58,15 @@ public interface JooCarrierBC {
 	 * @exception EventException
 	 */
 	public List<JooCarrierVO> searchTotalSum(JooCarrierVO jooCarrierVO) throws EventException;
+	/**
+	 * [searchTotalSum].<br>
+	 * Get total sum by Currency
+	 * 
+	 * @param JooCarrierVO	jooCarrierVO
+	 * @return List<JooCarrierVO>
+	 * @exception EventException
+	 */
+	public List<Object> directDownExcel(JooCarrierVO jooCarrierVO) throws EventException;
 	/**
 	 * [SearchPartner]<br>
 	 * Load data Partner from database

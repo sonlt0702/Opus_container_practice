@@ -72,6 +72,7 @@
 <form name="form">
 <input type="hidden" name="f_cmd">
 <input type="hidden" name="pagerows">
+<input type="hidden" name="s_sheet_id">
 <!-- page_title_area(S) -->
 <div class="page_title_area clear">
 	<!-- page_title(S) -->
@@ -83,6 +84,7 @@
 		--><button type="button" class="btn_accent" name="btn_Retrieve" 		id="btn_Retrieve">Retrieve</button><!-- 
 		--><button type="button" class="btn_normal" name="btn_New" 				id="btn_New">New</button><!--  
 		--><button type="button" class="btn_normal" name="btn_DownExcel" 		id="btn_DownExcel">Down Excel</button><!-- 
+		--><button type="button" class="btn_normal" name="btn_DirectDownExcel" 		id="btn_DirectDownExcel">Direct Down Excel</button><!-- 
 		--></div>
 	<!-- opus_design_btn(E) -->
 
@@ -95,38 +97,35 @@
 <!-- page_title_area(E) -->
 
 <!-- wrap_search(S) -->
-<div class="wrap_search">
+<div class="wrap_search_tab">
 <!-- opus_design_inquiry(S) -->
 <div class="opus_design_inquiry wFit">
 	<table>
 		<tbody>
 			<colgroup>
-				<col width="80px">
-				<col width="200px">
-				<col width="55px">
-				<col width="75px">
-				<col width="55px">
-				<col width="75px">
-				<col width="55px">
-				<col width="75px">
-				<col width="80px">
-				<col width="100px">
+				<col width="80">
+				<col width="232">
+				<col width="55">
+				<col width="200">
+				<col width="55">
+				<col width="80">
+				<col width="55">
 				<col width="*" />
 			</colgroup>
-			<tr class="h23">
+			<tr>
 				<th>Year Month</th>
-			    <td><input type="text" style="width:60px;" class="input1" dataformat="ym" maxlength="7" name="s_fr_acct_yrmon" value="" id="s_fr_acct_yrmon" cofield="btn_vvd_from_back"/><!--  
+			    <td><input type="text" style="width:60px;" class="input1" dataformat="ym" maxlength="7" name="s_fr_acct_yrmon" value="" id="s_fr_acct_yrmon"/><!--  
 			    --><button type="button" class="btn_left" name="btn_vvd_from_back" id="btn_vvd_from_back"></button><!--  
 			    --><button type="button" class="btn_right" name="btn_vvd_from_next" id="btn_vvd_from_next"></button><!--  
-			    --><input type="text" style="width:60px;" class="input1" maxlength="7" dataformat="ym" name="s_to_acct_yrmon" value="" cofield="btn_vvd_to_next" id="s_to_acct_yrmon" /><!-- 
+			    --><input type="text" style="width:60px;" class="input1" maxlength="7" dataformat="ym" name="s_to_acct_yrmon" value="" id="s_to_acct_yrmon" /><!-- 
 			    --><button type="button" class="btn_left" name="btn_vvd_to_back" id="btn_vvd_to_back"></button><!--  
 			    --><button type="button" class="btn_right" name="btn_vvd_to_next" id="btn_vvd_to_next"></button></td>
 			    <th>Partner</th>
-				<td><script type="text/javascript">ComComboObject('s_jo_crr_cd', 1, 200, 1, 0, 0);</script></td>
+				<td><script type="text/javascript">ComComboObject('s_jo_crr_cd', 1, 200);</script></td>
 				<th>Lane</th>
-               	<td><script type="text/javascript">ComComboObject('s_rlane_cd',1, 80, 0, 0);</script></td>
+               	<td><script type="text/javascript">ComComboObject('s_rlane_cd',1, 80);</script></td>
                	<th>Trade</th>
-				<td><script type="text/javascript">ComComboObject('s_trd_cd', 1, 80, 0, 0);</script></td>
+				<td><script type="text/javascript">ComComboObject('s_trd_cd', 1, 80);</script></td>
                	
 			</tr>
 		</tbody>
@@ -138,21 +137,19 @@
 
 <!-- opus_design_grid(S) -->
 <div class="wrap_result">
-	<!-- layout_wrap(S) -->
-	<div class="layout_wrap">
+		<!-- opus_design_tab(S) -->
 		<div class="opus_design_tab">
 			<script language="javascript">ComTabObject('tab1');</script>
 		</div>
-		
+		<!-- opus_design_tab(E) -->
 		<!-- opus_design_grid(S) -->	
-		<div class="opus_design_grid clear" style="width:98%" name="tabLayer" id="tabLayer">
+		<div class="opus_design_grid" name="tabLayer" id="tabLayer">
 			<script type="text/javascript">ComSheetObject('t1sheet1');</script>
 		</div>
-		<div class="opus_design_grid clear" style="width:98%" name="tabLayer" id="tabLayer">
+		<div class="opus_design_grid" name="tabLayer" id="tabLayer">
 			<script type="text/javascript">ComSheetObject('t2sheet1');</script>
 		</div>
 		<!-- opus_design_grid(E) -->
-	</div>
 </div>
 <!-- wrap_result(E) -->				
 </form>

@@ -44,11 +44,14 @@
     var tabObjects=new Array();
     var tabCnt=0 ;
     var beforetab=1;
-    var beforeFormCondition = "";
+    var summaryFormCondition = "";
+    var detailFormCondition = "";
     var checkFirstTimeRetrieve = true;
 
     // Event handler processing by button click event */
     document.onclick = processButtonClick;
+    
+   
     /**
      * Event handler processing by button name
      * 
@@ -62,6 +65,7 @@
             var srcName = ComGetEvent("name");
             switch (srcName) {
                 case "btn_Retrieve":
+                	// check search condition over 3 month
                 	if (checkFirstTimeRetrieve && GetCheckOverThreeMonth()) {
                 		if (confirm("Year Month over 3 months, do you realy want to get data?")) {
                 			doActionIBSheet(sheetObject, formObj, IBSEARCH);
@@ -137,6 +141,13 @@
         return sheetObj;
     }
     /**
+     * return search condition on form
+     */
+    function getSearchCondition(){
+    	var formObj=document.form;
+    	return formObj.s_fr_acct_yrmon.value+formObj.s_to_acct_yrmon.value+formObj.s_jo_crr_cd.value+formObj.s_rlane_cd.value+formObj.s_trd_cd.value;
+    }
+    /**
      * clear all data on summary & detail tab
      */
     function clearAllData() {
@@ -191,8 +202,8 @@
         initControl();
         resizeSheet();
         // auto load data when load page
-        doActionIBSheet(sheetObjects[0], document.form, IBSEARCH);
-        //doActionIBSheet(sheetObjects[1], document.form, IBSEARCH);
+        ComFireEvent(ComGetObject("btn_Retrieve") ,"click");
+       
     }
     /**
      * initializing screen
@@ -230,29 +241,23 @@
      */
     function tab1_OnChange(tabObj , nItem)
     {
-        var objs=document.all.item("tabLayer");
+    	
+    	var objs=document.all.item("tabLayer");
         objs[nItem].style.display="Inline";
         objs[beforetab].style.display="none";
         //--------------- important --------------------------//
         objs[beforetab].style.zIndex=objs[nItem].style.zIndex -1 ;
         //------------------------------------------------------//
         beforetab=nItem;
-        
-        var currentFormCondition = FormQueryString(document.form);
-        currentFormCondition = currentFormCondition.slice(0, currentFormCondition.indexOf("ibTab"));
         var sheetObj = getCurrentSheet();
-        if (beforeFormCondition != currentFormCondition || sheetObj.RowCount() < 1) {
-        	if (beforetab == 0) {
-        		beforeFormCondition = FormQueryString(document.form);
-        		beforeFormCondition = beforeFormCondition.slice(0, beforeFormCondition.indexOf("ibTab"));
-	            ComFireEvent(ComGetObject("btn_Retrieve") ,"click");
-	            
-	        }else{
-	        	beforeFormCondition = FormQueryString(document.form);
-	        	beforeFormCondition = beforeFormCondition.slice(0, beforeFormCondition.indexOf("ibTab"));
-	            ComFireEvent(ComGetObject("btn_Retrieve") ,"click");
-	            
-	        }
+        var currentFormCondition = getSearchCondition();
+        if (currentFormCondition != summaryFormCondition && currentFormCondition != detailFormCondition ) {
+        	if (!confirm("Search condition has been changed from curent sheet. Do you want to Retrieve data?")) {
+        		return;
+        	}
+        }
+        if (summaryFormCondition != detailFormCondition || summaryFormCondition != currentFormCondition || sheetObj.RowCount() < 1) {
+        	ComFireEvent(ComGetObject("btn_Retrieve") ,"click");
         }
         resizeSheet();
     }
@@ -380,6 +385,46 @@
         }   
         return false;
     }
+    
+    /**
+     * These records are summary data for 1 invoice on both tab
+     */
+    function subSum() {
+    	var info1 = [{StdCol:3, SumCols:"7|8", CaptionText: " "}];
+    	var info2 = [{StdCol:3, SumCols:"9|10", CaptionText: " "}];
+    	sheetObjects[0].ShowSubSum(info1);
+    	sheetObjects[1].ShowSubSum(info2);
+    }
+    /**
+     * handle total sum
+     */
+    function totalSum(sheetObj) {
+    	var formObj = document.form;
+        if (sheetObj.RowCount() > 0) {
+        	// get data total sum
+        	formObj.f_cmd.value=SEARCH03;
+        	var sXml = sheetObj.GetSearchData("ESM_DOU_0108GS.do", FormQueryString(formObj));
+        	var currNo = ComGetEtcData(sXml, "currNo")*1; // parseInt
+        	// insert and set value of total sum for each currency
+        	for (var i=0; i< currNo; i++) {
+        		var rowIdx = sheetObj.DataInsert(-1);
+        		
+        		sheetObj.SetCellValue(rowIdx, "locl_curr_cd", ComGetEtcData(sXml, "curr" + i));
+        		sheetObj.SetCellFontBold(rowIdx,"locl_curr_cd",1);
+        		
+        		sheetObj.SetCellValue(rowIdx, "inv_rev_act_amt", ComGetEtcData(sXml, "rev" + i));
+        		sheetObj.SetCellFontBold(rowIdx,"inv_rev_act_amt",1);
+        		
+        		sheetObj.SetCellValue(rowIdx, "inv_exp_act_amt", ComGetEtcData(sXml, "exp" + i));
+        		sheetObj.SetCellFontBold(rowIdx,"inv_exp_act_amt",1);
+        		
+        		sheetObj.SetRowBackColor(rowIdx,"#FCDCEE");
+        	}
+        	// select first row again
+        	sheetObj.SetSelectRow(2);
+        }
+    	
+    }
     /**
      * setting sheet initial values and header param : sheetObj, sheetNo adding case
      * as numbers of counting sheets
@@ -461,14 +506,18 @@
         switch (sAction) {
             case IBSEARCH: // retrieve
                 if ( sheetID == "t1sheet1"){
+                	summaryFormCondition = getSearchCondition();
                     formObj.f_cmd.value=SEARCH01;
                     ComOpenWait(true);
-                    sheetObj.DoSearch("ESM_DOU_0108GS.do", FormQueryString(formObj));
+                    var sXml = sheetObj.GetSearchData("ESM_DOU_0108GS.do", FormQueryString(formObj));
+                    sheetObj.LoadSearchData(sXml, {Sync:1});
                     
                 }else if ( sheetID == "t2sheet1"){
+                	detailFormCondition = getSearchCondition();
                 	formObj.f_cmd.value=SEARCH02;
                     ComOpenWait(true);
-                    sheetObj.DoSearch("ESM_DOU_0108GS.do", FormQueryString(formObj));
+                    var sXml = sheetObj.GetSearchData("ESM_DOU_0108GS.do", FormQueryString(formObj));
+                    sheetObj.LoadSearchData(sXml, {Sync:1});
                 }
                 break; 
             case IBDOWNEXCEL:	//down excel
@@ -496,66 +545,15 @@
      * 
      */
     function t1sheet1_OnSearchEnd(sheetObj, Code, Msg, StCode, StMsg) {
-    	/*************Total Sum Summary****************/
-    	var formObj = document.form;
-        if (sheetObj.RowCount() > 0) {
-        	// get data total sum
-        	formObj.f_cmd.value=SEARCH03;
-        	var sXml = sheetObj.GetSearchData("ESM_DOU_0108GS.do", FormQueryString(formObj))
-        	var currNo = ComGetEtcData(sXml, "currNo")*1; // parseInt
-        	// insert and set value of total sum for each currency
-        	for (var i=0; i< currNo; i++) {
-        		var rowIdx = sheetObj.DataInsert(-1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "locl_curr_cd", ComGetEtcData(sXml, "curr" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"locl_curr_cd",1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "inv_rev_act_amt", ComGetEtcData(sXml, "rev" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"inv_rev_act_amt",1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "inv_exp_act_amt", ComGetEtcData(sXml, "exp" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"inv_exp_act_amt",1);
-        		
-        		sheetObj.SetRowBackColor(rowIdx,"#FCDCEE");
-        	}
-        	// select first row again
-        	sheetObj.SetSelectRow(2);
-        }
-        /*************End Total Sum****************/
+    	totalSum(sheetObj);
         ComOpenWait(false);
-        
     }
     /**
      * Handle data of t2sheet1 after search end 
      * 
      */
     function t2sheet1_OnSearchEnd(sheetObj, ErrMsg) {
-    	/*************Total Sum Detail****************/
-    	var formObj = document.form;
-        if (sheetObj.RowCount() > 0) {
-        	// get data total sum
-        	formObj.f_cmd.value=SEARCH03;
-        	var sXml = sheetObj.GetSearchData("ESM_DOU_0108GS.do", FormQueryString(formObj))
-        	var currNo = ComGetEtcData(sXml, "currNo")*1; // parseInt
-        	// insert and set value of total sum for each currency
-        	for (var i=0; i< currNo; i++) {
-        		var rowIdx = sheetObj.DataInsert(-1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "locl_curr_cd", ComGetEtcData(sXml, "curr" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"locl_curr_cd",1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "inv_rev_act_amt", ComGetEtcData(sXml, "rev" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"inv_rev_act_amt",1);
-        		
-        		sheetObj.SetCellValue(rowIdx, "inv_exp_act_amt", ComGetEtcData(sXml, "exp" + i));
-        		sheetObj.SetCellFontBold(rowIdx,"inv_exp_act_amt",1);
-        		
-        		sheetObj.SetRowBackColor(rowIdx,"#FCDCEE");
-        	}
-        	// select first row again
-        	sheetObj.SetSelectRow(2);
-        }
-        /*************End Total Sum****************/
+    	totalSum(sheetObj);
         ComOpenWait(false);
     }
     /**
@@ -587,16 +585,7 @@
 	    	sheetObjects[1].SetSelectRow(idx);
     	}
     }
-    /**
-     * These records are summary data for 1 invoice on both tab
-     */
-    function subSum() {
-    	var info1 = [{StdCol:3, SumCols:"7|8", CaptionText: " "}];
-    	var info2 = [{StdCol:3, SumCols:"9|10", CaptionText: " "}];
-    	sheetObjects[0].ShowSubSum(info1);
-    	sheetObjects[1].ShowSubSum(info2);
-    	
-    }
+    
     /**
      * handle check all for combo box Partner
      */

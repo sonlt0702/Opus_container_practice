@@ -114,10 +114,10 @@
 			</colgroup>
 			<tr>
 				<th>Year Month</th>
-			    <td><input type="text" style="width:60px;" class="input1" dataformat="ym" maxlength="7" name="s_fr_acct_yrmon" value="" id="s_fr_acct_yrmon" disabled/><!--  
+			    <td><input type="text" style="width:60px;" class="input1" dataformat="ym" maxlength="7" name="s_fr_acct_yrmon" value="" id="s_fr_acct_yrmon" readonly/><!--  
 			    --><button type="button" class="btn_left" name="btn_vvd_from_back" id="btn_vvd_from_back"></button><!--  
 			    --><button type="button" class="btn_right" name="btn_vvd_from_next" id="btn_vvd_from_next"></button><!--  
-			    --><input type="text" style="width:60px;" class="input1" maxlength="7" dataformat="ym" name="s_to_acct_yrmon" value="" id="s_to_acct_yrmon" disabled/><!-- 
+			    --><input type="text" style="width:60px;" class="input1" maxlength="7" dataformat="ym" name="s_to_acct_yrmon" value="" id="s_to_acct_yrmon" readonly/><!-- 
 			    --><button type="button" class="btn_left" name="btn_vvd_to_back" id="btn_vvd_to_back"></button><!--  
 			    --><button type="button" class="btn_right" name="btn_vvd_to_next" id="btn_vvd_to_next"></button></td>
 			    <th>Partner</th>

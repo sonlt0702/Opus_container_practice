@@ -176,8 +176,8 @@ public class DouTraining3SC extends ServiceCommandSupport {
 		return eventResponse;
 	}
 	/**
-	 * ESM_DOU_0108 : [searchTotalSum]<br>
-	 * Get total sum into ETC Data by Currency.<br>
+	 * ESM_DOU_0108 : [directDownExcel]<br>
+	 * Down load excel direct to server.<br>
 	 * 
 	 * @param Event e
 	 * @return EventResponse

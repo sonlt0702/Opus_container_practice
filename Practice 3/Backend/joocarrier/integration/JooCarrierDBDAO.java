@@ -43,6 +43,10 @@ import com.clt.framework.support.layer.integration.DBDAOSupport;
 public class JooCarrierDBDAO extends DBDAOSupport {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * [searchJooCarrier]<br>
 	 * Connect to database to search data summary
 	 * 
@@ -300,14 +304,13 @@ public class JooCarrierDBDAO extends DBDAOSupport {
 				 return list;
 			 }
 			 /**
-			  * [searchTrade]<br>
-			  * Connect to DB to get data Trade
+			  * [directDownExcel]<br>
+			  * Connect to DB to get data for down excel
 			  * 
-			  * @param SearchParamsVO searchParamsVO
-			  * @return List<SearchParamsVO>
+			  * @param (JooCarrierVO jooCarrierVO
+			  * @return List<Object>
 			  * @exception DAOException
 			  */
-			 @SuppressWarnings({ "unchecked" })
 			 public List<Object> directDownExcel(JooCarrierVO jooCarrierVO) throws DAOException {
 				 DBRowSet dbRowset = null;
 				 List<Object> list = new ArrayList<>();

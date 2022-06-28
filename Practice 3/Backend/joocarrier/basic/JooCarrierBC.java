@@ -59,11 +59,11 @@ public interface JooCarrierBC {
 	 */
 	public List<JooCarrierVO> searchTotalSum(JooCarrierVO jooCarrierVO) throws EventException;
 	/**
-	 * [searchTotalSum].<br>
-	 * Get total sum by Currency
+	 * [directDownExcel].<br>
+	 * Direct down excel
 	 * 
 	 * @param JooCarrierVO	jooCarrierVO
-	 * @return List<JooCarrierVO>
+	 * @return List<Object>
 	 * @exception EventException
 	 */
 	public List<Object> directDownExcel(JooCarrierVO jooCarrierVO) throws EventException;
